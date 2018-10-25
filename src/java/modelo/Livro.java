@@ -10,34 +10,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 /**
  *
- * @author dappo
+ * @author Aluno
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "Genero.findAll", query = "SELECT g FROM Genero g"),
-    @NamedQuery(name = "Genero.findFilter", query = "SELECT g FROM Genero g WHERE g.genero like :filtro")
-})
-public class Genero implements Serializable {
+public class Livro implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    private String genero;
-
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
+    private String nome;
+    private Autor autor;
+    private Classificacao classificacao;
+    private Editora editora;
+    private Genero genero;
 
     public Long getId() {
         return id;
@@ -57,10 +46,10 @@ public class Genero implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Genero)) {
+        if (!(object instanceof Livro)) {
             return false;
         }
-        Genero other = (Genero) object;
+        Livro other = (Livro) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -69,7 +58,7 @@ public class Genero implements Serializable {
 
     @Override
     public String toString() {
-        return genero;
+        return "modelo.Livro[ id=" + id + " ]";
     }
     
 }

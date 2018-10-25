@@ -79,6 +79,11 @@ public class Editora implements Serializable {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return  nome;
+    }
+
     
 
     

@@ -2,7 +2,7 @@
 <%@include file="../cabecalho.jsp" %>
 <div class="card">
     <div class="card-header">
-        <h5 class="title">Adiciona Autor</h5>
+        <h5 class="title">Altera Autor</h5>
     </div>
     <div class="card-body">
         <!--MODIFICAR PARA ADD-->

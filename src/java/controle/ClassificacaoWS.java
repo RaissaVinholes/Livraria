@@ -1,16 +1,12 @@
-package controle;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package controle;
 
-
-import controle.*;
-import dao.AdminDAO;
+import dao.ClassificacaoDAO;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,17 +16,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modelo.Admin;
-import util.Criptografia;
+import modelo.Classificacao;
 
 /**
  *
  * @author dappo
  */
-@WebServlet(name = "AdminWS", urlPatterns = {"/admin/admin/AdminWS"})
-public class AdminWS extends HttpServlet {
-    private AdminDAO dao;
-    private Admin obj;
+@WebServlet(name = "ClassificacaoWS", urlPatterns = {"/admin/classificacao/ClassificacaoWS"})
+public class ClassificacaoWS extends HttpServlet {
+    private ClassificacaoDAO dao;
+    private Classificacao obj;
     private String pagina;
     private String acao;
      
@@ -39,12 +34,28 @@ public class AdminWS extends HttpServlet {
             throws ServletException, IOException {
         
         acao = request.getParameter("acao");
-        List<Admin> lista = null;
+        List<Classificacao> lista = null;
         String id;
         switch(String.valueOf(acao)){
+            case "list":
+                dao = new ClassificacaoDAO();
+                if (request.getParameter("filtro") != null) {
+                    try {
+                        lista = dao.listar(request.getParameter("filtro"));
+                    } catch (Exception ex) {
+                        Logger.getLogger(ClassificacaoWS.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    lista = dao.listar();
+                }
+                //pra onde deve ser redirecionada a página
+                pagina = "index.jsp";
+                //passar a listagem para a página
+                request.setAttribute("lista", lista);
+                break;
             case "del":
                 id = request.getParameter("id");
-                dao = new AdminDAO();
+                dao = new ClassificacaoDAO();
                 pagina = "index.jsp";
                 obj = dao.buscarPorChavePrimaria(Long.parseLong(id));
                 Boolean deucerto = dao.excluir(obj);
@@ -59,18 +70,18 @@ public class AdminWS extends HttpServlet {
                 break;
             case "edit":
                 id = request.getParameter("id");
-                dao = new AdminDAO();
-                Admin obj = dao.buscarPorChavePrimaria(Long.parseLong(id));
+                dao = new ClassificacaoDAO();
+                Classificacao obj = dao.buscarPorChavePrimaria(Long.parseLong(id));
                 request.setAttribute("obj", obj);
                 pagina = "edita.jsp";
                 break;
             default:
-                dao = new AdminDAO();
+                dao = new ClassificacaoDAO();
                 if (request.getParameter("filtro") != null) {
                     try {
                         lista = dao.listar(request.getParameter("filtro"));
                     } catch (Exception ex) {
-                        Logger.getLogger(AdminWS.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ClassificacaoWS.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
                     lista = dao.listar();
@@ -91,14 +102,13 @@ public class AdminWS extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             String msg;
-            request.setCharacterEncoding("UTF-8");
             //verificar campos obrigatórios
-            if(request.getParameter("txtNome") == null){
+            if(request.getParameter("txtClassificacao") == null){
                 msg = "Campos obrigatórios não informados";
             }
             else{
-                dao = new AdminDAO();
-                obj = new Admin();
+                dao = new ClassificacaoDAO();
+                obj = new Classificacao();
                 //preencho o objeto com o que vem do post
                 
                 Boolean deucerto;
@@ -106,30 +116,12 @@ public class AdminWS extends HttpServlet {
                 //se veio com a chave primaria então tem q alterar
                 if(request.getParameter("txtId")!= null){
                     obj = dao.buscarPorChavePrimaria(Long.parseLong(request.getParameter("txtId")));
-                    obj.setNome(request.getParameter("txtNome"));
-                    obj.setEmail(request.getParameter("txtEmail"));
-                    String criptografia;
-                    try {
-                        criptografia = Criptografia.convertPasswordToMD5(request.getParameter("txtSenha"));
-                        obj.setSenha(criptografia);
-                    } catch (NoSuchAlgorithmException ex) {
-                        Logger.getLogger(AdminWS.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    obj.setEndFoto(request.getParameter("txtFoto"));
+                    obj.setClassificacao(request.getParameter("txtClassificacao"));
                     deucerto = dao.alterar(obj);
                     pagina="edita.jsp";
                 }
                 else{
-                    obj.setNome(request.getParameter("txtNome"));
-                    obj.setEmail(request.getParameter("txtEmail"));
-                    String criptografia;    
-                    try {
-                        criptografia = Criptografia.convertPasswordToMD5(request.getParameter("txtSenha"));
-                        obj.setSenha(criptografia);
-                    } catch (NoSuchAlgorithmException ex) {
-                        Logger.getLogger(AdminWS.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    obj.setEndFoto(request.getParameter("txtFoto"));
+                    obj.setClassificacao(request.getParameter("txtClassificacao"));
                     deucerto = dao.incluir(obj);
                     pagina="add.jsp";   
                 }

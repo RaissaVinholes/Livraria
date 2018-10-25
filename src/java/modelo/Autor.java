@@ -76,6 +76,11 @@ public class Autor implements Serializable {
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
     
     
 

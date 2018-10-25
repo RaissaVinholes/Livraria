@@ -35,10 +35,11 @@
           </a>
         </div>
         <ul class="nav">
+            
           <li>
-            <a href="./../genero/GeneroWS?acao=list">
+            <a href="./../admin/AdminWS?acao=list">
               <i class="tim-icons icon-tag"></i>
-              <p>Genero</p>
+              <p>Admin</p>
             </a>
           </li>
           <li>
@@ -46,11 +47,10 @@
               <i class="tim-icons icon-tag"></i>
               <p>Autor</p>
             </a>
-          </li>
-          <li>
-            <a href="./../admin/AdminWS?acao=list">
+          </li><li>
+            <a href="./../classificacao/ClassificacaoWS?acao=list">
               <i class="tim-icons icon-tag"></i>
-              <p>Admin</p>
+              <p>Classificação</p>
             </a>
           </li>
           <li>
@@ -59,6 +59,13 @@
               <p>Editora</p>
             </a>
           </li>
+          <li>
+            <a href="./../genero/GeneroWS?acao=list">
+              <i class="tim-icons icon-tag"></i>
+              <p>Gênero</p>
+            </a>
+          </li>
+          
         </ul>
       </div>
     </div>
