@@ -5,7 +5,9 @@
  */
 package dao;
 
+import java.util.List;
 import modelo.Admin;
+import util.Criptografia;
 
 
 /**
@@ -16,6 +18,21 @@ public class AdminDAO extends GenericDAO<Admin, Long>{
     
     public AdminDAO(){
         super(Admin.class);
+    }
+    
+    public Admin fazerLogin(String email, String senha){
+        //a senha deve chegar nesse método criptografada
+        //se a senha não chegar criptografada, executar a linha a seguir:
+        //String senha_cripto = Criptografia.convertPasswordToMD5(senha);
+        List<Admin> admins = em.createNamedQuery("Admin.logar")
+                .setParameter("email", email).setParameter("senha", senha)
+                .getResultList();
+        
+        if(0 == admins.size()){
+            return new Admin();
+        }else{
+        return admins.get(0);
+        }
     }
     
 }

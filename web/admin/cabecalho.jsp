@@ -65,7 +65,12 @@
               <p>Gênero</p>
             </a>
           </li>
-          
+          <li>
+            <a href="./../livro/LivroWS?acao=list">
+              <i class="tim-icons icon-tag"></i>
+              <p>Livro</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
