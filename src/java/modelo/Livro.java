@@ -36,6 +36,7 @@ public class Livro implements Serializable {
         this.id = id;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -58,7 +59,47 @@ public class Livro implements Serializable {
 
     @Override
     public String toString() {
-        return "modelo.Livro[ id=" + id + " ]";
+        return nome;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Autor autor) {
+        this.autor = autor;
+    }
+
+    public Classificacao getClassificacao() {
+        return classificacao;
+    }
+
+    public void setClassificacao(Classificacao classificacao) {
+        this.classificacao = classificacao;
+    }
+
+    public Editora getEditora() {
+        return editora;
+    }
+
+    public void setEditora(Editora editora) {
+        this.editora = editora;
+    }
+
+    public Genero getGenero() {
+        return genero;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
     }
     
 }

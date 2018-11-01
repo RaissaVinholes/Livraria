@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,6 +68,14 @@
                     <button type="submit" class="btn btn-fill btn-primary">Entrar</button>
                   
                   </form>
+                <c:if  test="${not empty msg}">
+                  <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong> Erro :</strong> ${msg}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                  </div>
+                </c:if>
                 </p>
               </div>
               <div class="card-footer ">

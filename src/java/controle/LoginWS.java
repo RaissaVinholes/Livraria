@@ -40,6 +40,7 @@ public class LoginWS extends HttpServlet {
             Admin admin = dao.fazerLogin(email, senha);
             
             if(admin.getId() != null){
+                request.getSession().setAttribute("admin", admin);
                 pagina = "../inicial/index.jsp";
             }else{
                 request.setAttribute("msg", "Senha e/ou Login incorretos!");
